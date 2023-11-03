@@ -1,10 +1,19 @@
 <template>
-  <!-- <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav> -->
-  <router-view/>
+  <div>
+    <HeaderBlock />
+    <router-view/>
+  </div>
 </template>
+
+<script>
+import HeaderBlock from '@/components/HeaderBlock';
+
+export default {
+  components: {
+    HeaderBlock
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
