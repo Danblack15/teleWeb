@@ -1,14 +1,15 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <img alt="logo" src="../assets/logo.png">
+    <h1>Привет, {{ userTelegramData?.first_name }} ({{ userTelegramData?.username }})!</h1>
+    <h1>Твой ID: {{ userTelegramData?.id }}</h1>
+    <h2>user: {{ userTelegramData }}</h2>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-import TeleWeb from '@/utils/teleWeb'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'HomeView',
@@ -17,17 +18,26 @@ export default {
   },
 
   mounted() {
-    // let teleWeb = document.createElement('script');
-    // teleWeb.setAttribute('src', 'https://telegram.org/js/telegram-web-app.js');
-    // document.head.appendChild(teleWeb);
-    Telegram.WebApp.expand()
-    this.initData();
+    this.registerUser();
   },
 
   methods: {
-    initData() {
-      console.log(Telegram.WebApp.initDataUnsafe.user?.id);
-    }
+    ...mapActions({
+      registerUser: 'userData/registerUser'
+    }),
+  },
+
+  computed: {
+    ...mapGetters({
+      userTelegramData: 'userData/getUserData'
+    })
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.home img
+  max-width: 70%
+  max-height: 200px
+  aspect-ratio: 1
+</style>
