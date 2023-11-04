@@ -48,7 +48,7 @@ export default {
         }),
 
         dataBase() {
-            return this.basesData;
+            return this.basesData?.filter(base => base.id === this.$route.params.id)[0];
         }
     }
 }
