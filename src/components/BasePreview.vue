@@ -8,17 +8,37 @@
         <ButtonUI blue>Перезагрузка</ButtonUI>
         <ButtonUI :link="'#'">Подробнее</ButtonUI>
     </div> -->
+
     <div class="base-preview container">
-        <div class="base-preview__main">
+        <div class="base-preview__main" @click="$router.push(`/${data.id}`)">
             <p>{{ data.name }}</p>
             <span>{{ data.ip }}</span>
-            <div class="base-preview__status"></div>
+            <div :class="['base-preview__status', {
+                'base-preview__status--error': data.actualStatus?.state === 'error'
+            }]"></div>
         </div>
         <div class="base-preview__btns">
-            <ButtonUI blue icon class="base-preview__btn">
+            <ButtonUI 
+                blue 
+                icon 
+                class="base-preview__btn"
+            >
                 <img src="@/assets/refresh.svg" alt="refresh" />
             </ButtonUI>
-            <ButtonUI link="#" icon class="base-preview__btn">
+            <ButtonUI 
+                link="/" 
+                icon 
+                class="base-preview__btn" 
+                v-if="detail"
+            >
+                <img src="@/assets/back.svg" alt="more" />
+            </ButtonUI>
+            <ButtonUI 
+                :link="`/${data.id}`" 
+                icon 
+                class="base-preview__btn" 
+                v-else
+            >
                 <img src="@/assets/more.svg" alt="more" />
             </ButtonUI>
         </div>
@@ -35,6 +55,10 @@ export default {
         data: {
             type: Object,
             required: true
+        },
+        detail: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -116,6 +140,9 @@ export default {
         left: 0
         top: 0
         background: $green
+
+        &--error
+            background: $red
 
     &__btns
         display: flex

@@ -22,6 +22,7 @@ export const BasesData = {
     actions: {
         async getBaseByUser({ state, commit }) {
             if (!state.userId) return;
+            console.log('getBases');
 
             let registerURL = process.env.VUE_APP_API_URL;
 
@@ -34,6 +35,7 @@ export const BasesData = {
             })
             .catch((err) => {
                 console.log(err);
+                commit('setBases', []);
             });
         }
     },

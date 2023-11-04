@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <section class="home__list" v-if="basesData">
+    <section class="home__list" v-if="basesData && basesData.length > 0">
       <BasePreview 
         v-for="baseData in basesData"
         :key="baseData"
@@ -8,7 +8,9 @@
       />
     </section>
 
-    <h1 class="container" v-else>Добавьте свою первую базу данных!</h1>
+    <h1 class="container home__title" v-else-if="!basesData">Загрузка</h1>
+
+    <h1 class="container home__title" v-else>Нет Базы Данных</h1>
   </div>
 </template>
 
@@ -52,6 +54,9 @@ export default {
     display: flex
     flex-direction: column
     grid-gap: 20px
+
+  &__title
+    margin-top: 100px
 .home img
   max-width: 70%
   max-height: 200px
